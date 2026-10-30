@@ -43,7 +43,7 @@ def test_preparation_time_validation(prep):
     order = new_order("O","R","D",prep)
     partner = new_partner("P","Z")
     result = estimate_eta(order,partner,{("Z","R"):2,("R","D"):3})
-    expected_valid = isinstance(prep,(int,float)) and not isinstance(prep,bool) and prep >= 0 and prep == prep and prep != float("inf")
+    expected_valid = type(prep)==int and prep>=0
     assert result["eligible"] is bool(expected_valid)
 
 
