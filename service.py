@@ -5,7 +5,7 @@ def estimate_eta(order, partner, travel, now=0):
     leg1=travel.get((partner.get('zone'),order.get('restaurant_id')))
     leg2=travel.get((order.get('restaurant_id'),order.get('destination_zone')))
     prep=order.get('prep_minutes')
-    if type(leg1)!=int or type(leg2)!=int or leg1<0 or leg2<0 or (not partner.get('active')) or (type(prep)!=int or prep<0):
+    if type(leg1)!=int or type(leg2)!=int or leg1<0 or leg2<0 or (not partner.get('active')) or (type(prep)!=int or prep<0) or not( isinstance(now,int) and (not isinstance(now,bool)) and now >= 0):
         return {'partner_id':partner.get('partner_id'),'eta_minutes':None,'eligible':False}
     pickup=now+leg1+partner.get('workload_minutes',0)
     return {'partner_id':partner.get('partner_id'),'pickup_minutes':pickup,'eta_minutes':pickup+prep+leg2,'eligible':True}

@@ -123,7 +123,7 @@ def test_cancellation_workload_never_goes_below_zero(workload,minutes):
 @pytest.mark.parametrize("now", [0,1,2,5,10,60,100,1000,-1,-10,"5",True,None])
 def test_current_time_validation(now):
     result = estimate_eta(new_order("O","R","D"),new_partner("P","Z"),{("Z","R"):1,("R","D"):1},now)
-    if isinstance(now,(int,float)) and not isinstance(now,bool) and now >= 0:
+    if isinstance(now,int) and (not isinstance(now,bool)) and now >= 0:
         assert result["eligible"] is True
     else:
         assert result["eligible"] is False
