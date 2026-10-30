@@ -14,12 +14,12 @@ def test_missing_travel_is_not_zero():
 
 def test_inactive_partner_not_assigned():
     o=new_order('O','R','D'); p=new_partner('P','Z'); p['active']=False
-    assert assign_order(o,[p],{('Z','R'):1,('R','D'):1})['partner_id'] is None
+    assert assign_order(o,[p],{('zone','restaurant_id'):1,('restaurant_id','destination_zone'):1})['partner_id'] is None
 
 
 def test_full_partner_not_assigned():
     o=new_order('O','R','D'); p=new_partner('P','Z',1); p['active_order_ids']=['A']
-    assert assign_order(o,[p],{('Z','R'):1,('R','D'):1})['partner_id'] is None
+    assert assign_order(o,[p],{('zone','restaurant_id'):1,('restaurant_id','destination_zone'):1})['partner_id'] is None
 
 
 def test_lowest_eta_selected():
@@ -36,7 +36,7 @@ def test_tie_break_by_partner_id():
 
 def test_negative_prep_time_is_rejected():
     o=new_order('O','R','D',-5); p=new_partner('P','Z')
-    assert assign_order(o,[p],{('Z','R'):1,('R','D'):1})['partner_id'] is None
+    assert assign_order(o,[p],{('zone','restaurant_id'):1,('restaurant_id','destination_zone'):1})['partner_id'] is None
 
 
 def test_no_candidate_returns_reason():

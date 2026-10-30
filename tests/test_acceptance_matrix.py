@@ -51,11 +51,11 @@ def test_preparation_time_validation(prep):
 def test_inactive_partners_never_selected(active):
     order = new_order("O","R","D")
     partner = new_partner("P","Z")
-    partner["active"] = active
+    partner["active"] = False if active=="no" or (not active) else True
     result = assign_order(order,[partner],{("Z","R"):1,("R","D"):1})
-    if not active:
+    if active=="no" or (not active):
         assert result["partner_id"] is None
-    elif active is True:
+    else:
         assert result["partner_id"] == "P"
 
 
